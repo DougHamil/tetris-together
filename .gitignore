@@ -1,0 +1,7 @@
+deploy.ps1
+lambdas/.projectile
+lambdas/.shadow-cljs/
+lambdas/dist/
+lambdas/dist.zip
+lambdas/index.js
+node_modules/

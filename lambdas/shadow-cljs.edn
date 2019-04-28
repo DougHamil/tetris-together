@@ -1,0 +1,18 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"]
+
+ :dependencies
+ [[binaryage/oops "0.7.0"]
+  [kitchen-async "0.1.0-SNAPSHOT"]]
+
+ :builds
+ {:app {:target :node-library
+        :output-to "index.js"
+        :compiler-options {:infer-externs :auto}
+        :exports {:hostRoomHandler tetris100.core/host-room-handler
+                  :joinRoomHandler tetris100.core/join-room-handler
+                  :broadcastHandler tetris100.core/broadcast-handler
+                  :messageHandler tetris100.core/message-handler
+                  :messageHostHandler tetris100.core/message-host-handler}}}}
+        
