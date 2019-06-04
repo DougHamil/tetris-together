@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			body,html {
+					padding:0;
+					margin:0;
+					width:100%;
+					height:100%;
+					overflow:hidden;
+			}
+
+			#root {
+					width:100%;
+					height:100%;
+					position:fixed;
+					left:0;
+					top:0;
+					z-index:-2;
+			}
+
+			#ui-root {
+					left: 0;
+					top:0;
+					font-family:sans-serif;
+			}
+
+			#footer {
+							position:fixed;
+							bottom:0;
+							left:0;
+							background-color:white;
+							width:100%;
+							padding 5px;
+			}
+
+			#info {
+					position:fixed;
+			}
+
+			#lobby {
+					position:absolute;
+					width: 400px;
+					height: 250px;
+					background-color:#BBBBFF;
+					border: 5px solid white;
+					border-radius: 10px;
+					padding:20px;
+					left:50%;
+					top:50%;
+					margin-left:-200px;
+					margin-top:-200px;
+					font-size:24px;
+					text-align:center;
+			}
+
+			#lobby h1 {
+					color:#FFF;
+					text-shadow:1px 1px 2px black;
+			}
+
+			#lobby-background {
+					position:absolute;
+					background-color:rgba(0, 0, 0, 0.8);
+					height:300px;
+					width:3000px;
+					margin-left:-1500px;
+					margin-top:-1500px;
+					height:6000px;
+					z-index:-1;
+			}
+
+			#lobby button {
+					font-size:24px;
+			}
+
+			#lobby input {
+					font-size:24px;
+			}
+
+		</style>
+		<title>Tetris Together</title>
+	</head>
+	<body>
+		<canvas id="root"></canvas>
+		<div id="ui-root"></div>
+		<script src="js/main.js"></script>
+				<div id="footer">
+					<span>
+						Built using <a href="https://github.com/DougHamil/threeagent">threeagent</a> in <a href="https://clojurescript.org">ClojureScript</a>
+						- <a href="https://github.com/DougHamil/threeagent-examples/tree/master/tetris">Source on GitHub</a>
+					</span>
+				</div>
+	</body>
+</html>
