@@ -4,7 +4,8 @@
 
  :dependencies
  [[binaryage/oops "0.7.0"]
-  [kitchen-async "0.1.0-SNAPSHOT"]]
+  [funcool/promesa "2.0.1"]
+  [io.nervous/cljs-lambda "0.3.5"]]
 
  :builds
  {:app {:target :node-library
