@@ -91,8 +91,8 @@
                     {:on-before-render tick!}))))
   (ui/init!)
   (tetromino/init!)
-  (ws/connect! "wss://gq5gj22v30.execute-api.us-west-2.amazonaws.com/test")
-  (.addEventListener js/window "resize" resize-canvas false))
+  (ws/connect! "wss://6iugmdme47.execute-api.us-west-2.amazonaws.com/dev"))
+  (.addEventListener js/window "resize" resize-canvas false)
 
 (defn ^:dev/after-load reload []
   (println "Reload")

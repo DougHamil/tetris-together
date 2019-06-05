@@ -35,12 +35,8 @@
                     :Data (js/JSON.stringify #js {:source source-conn-id
                                                   :payload payload})}
         request ^js (.postToConnection gateway params)]
-    (p/promise [resolve reject]
-               (-> (.promise request)
-                   (p/then resolve)
-                   (p/catch* (fn [err]
-                               (println err)
-                               (resolve nil)))))))
+    (-> (.promise request)
+        (p/catch (fn [error] (println error))))))
 
 (defn- broadcast-to-players [^js gateway payload source-conn-id players]
   (let [promises (map (partial post-to-connection gateway payload source-conn-id) players)]
@@ -58,8 +54,8 @@
                        :Players {:SS [connection-id]}}
                 :ReturnConsumedCapacity "TOTAL"
                 :TableName "Tetris100"}]
-    (p/alet [data (p/await (.putItem ddb (clj->js params)))]
-      (p/promise (map->response {:roomId room-id})))))
+    (p/alet [data (p/await (.promise (.putItem ddb (clj->js params))))]
+      (map->response {:roomId room-id}))))
   
 (deflambda join-room-handler [event context]
   (let [connection-id (get-connection-id event)
@@ -70,7 +66,7 @@
                        :TableName "Tetris100"
                        :UpdateExpression "ADD Players :p"
                        :ExpressionAttributeValues {":p"  {:SS [connection-id]}}}]
-    (p/let [data (.updateItem ddb (clj->js update-params))]
+    (p/alet [data (p/await (.promise (.updateItem ddb (clj->js update-params))))]
       (map->response {:roomId room-id
                       :data data}))))
 
@@ -83,13 +79,13 @@
         gateway (get-gateway-api event)
         query-params {:Key {:Room {:S room-id}}
                       :TableName "Tetris100"}]
-    (p/alet [data (p/await (.getItem ddb (clj->js query-params)))
+    (p/alet [data (p/await (.promise (.getItem ddb (clj->js query-params))))
              players (set (oget data "Item.Players.SS"))]
       (if (players connection-id)
         (->>
           (broadcast-to-players gateway payload connection-id (disj players connection-id))
           (p/map (fn [] {:statusCode 200})))
-        (p/promise {:statusCode 200})))))
+        {:statusCode 200}))))
 
 (deflambda message-handler [event context]
   (let [connection-id (get-connection-id event)
@@ -101,13 +97,13 @@
         gateway (get-gateway-api event)
         query-params {:Key {:Room {:S room-id}}
                       :TableName "Tetris100"}]
-    (p/alet [data (p/await (.getItem ddb (clj->js query-params)))
+    (p/alet [data (p/await (.promise (.getItem ddb (clj->js query-params))))
              players (set (oget data "Item.Players.SS"))]
             (if (players connection-id)
               (->>
                (broadcast-to-players gateway payload connection-id #{target-connection-id})
                (p/map (fn [] {:statusCode 200})))
-              (p/promise {:statusCode 200})))))
+              {:statusCode 200}))))
 
 
 (deflambda message-host-handler [event ctx]
@@ -119,11 +115,11 @@
         gateway (get-gateway-api event)
         query-params {:Key {:Room {:S room-id}}
                       :TableName "Tetris100"}]
-    (p/alet [data (p/await (.getItem ddb (clj->js query-params)))
+    (p/alet [data (p/await (.promise (.getItem ddb (clj->js query-params))))
              players (set (oget data "Item.Players.SS"))
              host (oget data "Item.Host.S")]
             (if (players connection-id)
               (->>
-                (broadcast-to-players gateway payload connection-id #{host})
-                (p/map (fn [] {:statusCode 200})))
-              (p/promise {:statusCode 200})))))
+               (broadcast-to-players gateway payload connection-id #{host})
+               (p/map (fn [] {:statusCode 200})))
+              {:statusCode 200}))))

@@ -4,4 +4,6 @@ lambdas/.shadow-cljs/
 lambdas/dist/
 lambdas/dist.zip
 lambdas/index.js
+lambdas/handler.js
+lambdas/.serverless/
 node_modules/

@@ -3,10 +3,9 @@
  ["src/main"]
 
  :dependencies
- [[cider/cider-nrepl "0.21.2-SNAPSHOT"]
-  [org.clojure/core.async "0.4.490"]
+ [[org.clojure/core.async "0.4.490"]
   [doughamil/threeagent "0.0.1-SNAPSHOT"]
-  [haslett "0.1.5"]
+  [haslett "0.1.6"]
   [reagent "0.8.1"]]
 
  :nrepl {:port 7888}

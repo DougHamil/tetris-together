@@ -9,8 +9,9 @@
 
  :builds
  {:app {:target :node-library
-        :output-to "index.js"
-        :compiler-options {:infer-externs :auto}
+        :output-to "handler.js"
+        :compiler-options {:infer-externs :auto
+                           :optimizations :simple}
         :exports {:hostRoomHandler tetris100.core/host-room-handler
                   :joinRoomHandler tetris100.core/join-room-handler
                   :broadcastHandler tetris100.core/broadcast-handler

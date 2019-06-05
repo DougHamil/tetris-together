@@ -1,0 +1,61 @@
+service: tetris-100
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-west-2
+  profile: serverlessAgent
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/Tetris100"
+
+functions:
+  hostRoom:
+    handler: handler.hostRoomHandler
+    name: ${self:provider.stage}-hostRoomHandler
+    events:
+      - websocket:
+          route: host
+          integrationResponse:
+            key: $default
+
+  joinRoom:
+    handler: handler.joinRoomHandler
+    name: ${self:provider.stage}-joinRoomHandler
+    events:
+      - websocket:
+          route: join
+          integrationResponse:
+            key: $default
+
+  broadcast:
+    handler: handler.broadcastHandler
+    name: ${self:provider.stage}-broadcastHandler
+    events:
+      - websocket:
+          route: broadcast
+          integrationResponse:
+            key: $default
+
+  message:
+    handler: handler.messageHandler
+    name: ${self:provider.stage}-messageHandler
+    events:
+      - websocket:
+          route: message
+          integrationResponse:
+            key: $default
+
+  messageHost:
+    handler: handler.messageHostHandler
+    name: ${self:provider.stage}-messageHostHandler
+    events:
+      - websocket:
+          route: messageHost
+          integrationResponse:
+            key: $default
+  
