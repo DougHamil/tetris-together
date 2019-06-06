@@ -20,7 +20,7 @@ functions:
     events:
       - websocket:
           route: host
-          integrationResponse:
+          routeResponse:
             key: $default
 
   joinRoom:
@@ -29,7 +29,7 @@ functions:
     events:
       - websocket:
           route: join
-          integrationResponse:
+          routeResponse:
             key: $default
 
   broadcast:
@@ -38,7 +38,7 @@ functions:
     events:
       - websocket:
           route: broadcast
-          integrationResponse:
+          routeResponse:
             key: $default
 
   message:
@@ -47,7 +47,7 @@ functions:
     events:
       - websocket:
           route: message
-          integrationResponse:
+          routeResponse:
             key: $default
 
   messageHost:
@@ -56,6 +56,6 @@ functions:
     events:
       - websocket:
           route: messageHost
-          integrationResponse:
+          routeResponse:
             key: $default
   
