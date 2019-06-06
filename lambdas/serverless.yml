@@ -20,8 +20,7 @@ functions:
     events:
       - websocket:
           route: host
-          routeResponse:
-            key: $default
+          routeResponseSelectionExpression: $default
 
   joinRoom:
     handler: handler.joinRoomHandler
@@ -29,8 +28,7 @@ functions:
     events:
       - websocket:
           route: join
-          routeResponse:
-            key: $default
+          routeResponseSelectionExpression: $default
 
   broadcast:
     handler: handler.broadcastHandler
@@ -38,8 +36,7 @@ functions:
     events:
       - websocket:
           route: broadcast
-          routeResponse:
-            key: $default
+          routeResponseSelectionExpression: $default
 
   message:
     handler: handler.messageHandler
@@ -47,8 +44,7 @@ functions:
     events:
       - websocket:
           route: message
-          routeResponse:
-            key: $default
+          routeResponseSelectionExpression: $default
 
   messageHost:
     handler: handler.messageHostHandler
@@ -56,6 +52,5 @@ functions:
     events:
       - websocket:
           route: messageHost
-          routeResponse:
-            key: $default
+          routeResponseSelectionExpression: $default
   
